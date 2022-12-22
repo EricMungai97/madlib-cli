@@ -32,7 +32,9 @@ N/A
    
    * checking user input and string are being merged
    
-  * checking that FileNotFoundError is appropriately raised.
+   * checking that FileNotFoundError is appropriately raised. 
+
+If you need to check the tests, first comment out the game logic and just leave the functions in the madlib.py file
  
 
 
