@@ -15,7 +15,7 @@ def read_template(file_location):
             content = file.read()
             return content
     except FileNotFoundError as fnf_error:
-        print(fnf_error)
+        raise fnf_error
 
 
 
