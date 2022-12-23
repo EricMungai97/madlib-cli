@@ -7,11 +7,11 @@ def greeting_msg():
 
 
 
-def read_template(file_location):
+def read_template(path):
 
-#This function will read a template madlib file
+    #This function will read a template madlib file
     try:
-        with open(file_location, 'r') as file:
+        with open(path, 'r') as file:
             content = file.read()
             return content
     except FileNotFoundError as fnf_error:
@@ -30,7 +30,7 @@ def parse_template(string):
     string = re.sub(r"\{(.*?)\}", "{}", new_string)
 
     print(string, parts)
-    return (string, parts)
+    return string, parts
 
 
 def merge(narrative, user_input):
@@ -38,27 +38,30 @@ def merge(narrative, user_input):
      This function will combine user input with the given story and return it.
      """
     complete_narrative = narrative.format(*user_input)
-    return(complete_narrative)
+    return complete_narrative
 
 
-greeting_msg()
+def main(path):
+    template = read_template(path)
 
-template = read_template('../assets/dark_and_stormy_night_template.txt')
+    string, parts = parse_template(template)
 
-string, parts = parse_template(template)
+    new_parts = []
 
-new_parts = []
+    for word in parts:
+        new_word = input(f"Enter a {word}. ")
+        new_parts.append(new_word)
 
-for word in parts:
-    new_word = input(f"Enter a {word}. ")
-    new_parts.append(new_word)
+    madlib = merge(string, new_parts)
 
-madlib = merge(string, new_parts)
-
-with open('../assets/new_file.txt', 'w') as file:
-    file.write(madlib)
-
-
-print(f'Your madlib is: {madlib}')
+    with open('../assets/new_file.txt', 'w') as file:
+        file.write(madlib)
 
 
+    print(f'Your madlib is: {madlib}')
+
+
+if __name__ == '__main__':
+    greeting_msg()
+    path = '../assets/make_me_a_video_game_template.txt'
+    main(path)
